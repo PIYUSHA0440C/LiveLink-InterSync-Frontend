@@ -1,19 +1,20 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router'
+import { Toaster } from 'react-hot-toast'
+
 import HomePage from './pages/HomePage'
 import SignUpPage from './pages/SignUpPage'
+import OnboardingPage from './pages/OnBoardingPage'
 import LoginPage from './pages/LoginPage'
 import NotificationsPage from './pages/NotificationsPage'
 import CallPage from './pages/CallPage'
-import OnBoardingPage from './pages/OnBoardingPage'
 import ChatPage from './pages/ChatPage'
-import PageLoader from './components/PageLoader'
-import useAuthUser from './hooks/useAuthUser'
 
-import { Toaster } from 'react-hot-toast'
-import { useQuery } from '@tanstack/react-query'
-import { axiosInstance } from './lib/axios'
-import OnboardingPage from './pages/OnBoardingPage'
+import PageLoader from './components/PageLoader'
+
+import useAuthUser from './hooks/useAuthUser'
+import Layout from './components/Layout'
+
 
 const App = () => {
 
@@ -29,7 +30,9 @@ const App = () => {
     <div className='h-screen' data-theme="night">
       <Routes>
         <Route path='/' element={isAuthenticated && isOnboarded ? (
-          <HomePage />
+          <Layout showSidebar={true}>
+            <HomePage />
+          </Layout>
         ) : (
           <Navigate to={isAuthenticated ? "/onboarding" : "/login"} />
         )} />
